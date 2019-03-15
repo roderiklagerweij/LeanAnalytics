@@ -10,6 +10,8 @@ class LeanAnalyticsSdk {
 
         const val TAG = "LeanAnalyticsSdk"
 
+        private var trackPageConfiguration : TrackPageConfiguration = TrackPageConfiguration.TRACK_ONCREATE
+
         fun init(application : Application, trackPageAdapter : TrackPageAdapter) {
             application.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
                 override fun onActivityPaused(activity: Activity?) {
@@ -17,7 +19,9 @@ class LeanAnalyticsSdk {
                 }
 
                 override fun onActivityResumed(activity: Activity?) {
-
+                    if (trackPageConfiguration == TrackPageConfiguration.TRACK_ONRESUME) {
+                        trackActivity(activity, trackPageAdapter)
+                    }
                 }
 
                 override fun onActivityStarted(activity: Activity?) {
@@ -36,12 +40,22 @@ class LeanAnalyticsSdk {
                 }
 
                 override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-                    activity?.let {
-                        Log.d(TAG, "tracking page: ${it.localClassName}")
-                        trackPageAdapter.trackActivity(it.localClassName)
+                    if (trackPageConfiguration == TrackPageConfiguration.TRACK_ONCREATE) {
+                        trackActivity(activity, trackPageAdapter)
                     }
                 }
             })
+        }
+
+        fun setTrackPageConfiguration(trackPageConfiguration: TrackPageConfiguration) {
+            this.trackPageConfiguration = trackPageConfiguration
+        }
+
+        private fun trackActivity(activity : Activity?, trackPageAdapter: TrackPageAdapter) {
+            activity?.let {
+                Log.d(TAG, "tracking page: ${it.localClassName}")
+                trackPageAdapter.trackActivity(it.localClassName)
+            }
         }
     }
 }
