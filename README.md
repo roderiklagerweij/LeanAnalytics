@@ -1,6 +1,12 @@
 # Lean Analytics SDK
 
+A lean and light SDK for easily tracking application events by hooking 
+them up to your favourite analytics SDK. Currently only event supported
+is the start of a new screen (activity).
 
+Basically, this does what Firebase does out of the box, however, if you 
+cannot or do want to use Firebase analytics then this SDK might work for 
+you. 
 
 ## Setup
 
