@@ -3,7 +3,10 @@
 
     <application>
         <activity
-            android:name=".TestActivity"
+            android:name=".MasterActivity"
+            android:theme="@style/Theme.AppCompat"/>
+        <activity
+            android:name=".DetailActivity"
             android:theme="@style/Theme.AppCompat"/>
     </application>
 
