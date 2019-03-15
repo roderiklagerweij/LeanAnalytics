@@ -44,3 +44,15 @@ to your analytics SDK, e.g.:
         Analytics.trackState(activityName, null);
     }
 
+## Configuration
+
+* Track page when activity is created (default) or resumed
+
+You can configure the SDK to not track the activity when it is created but
+rather when it is resumed:
+
+    LeanAnalyticsSdk.setTrackPageConfiguration(TrackPageConfiguration.TRACK_ONRESUME)
+    
+Note: setting to track when the activity is resumed triggers a callback when
+navigating *back* to an activity as well as navigating forward to an activity.
+
