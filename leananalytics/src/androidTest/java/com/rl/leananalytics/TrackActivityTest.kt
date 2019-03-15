@@ -30,7 +30,17 @@ class TrackActivityTest {
     }
 
     @Test
-    fun testTrackActivity() {
+    fun testTrackActivityOnCreate() {
+        rule.launchActivity(Intent())
+        onView(withText("Test")).check(matches(isDisplayed()))
+
+        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.TestActivity")
+    }
+
+    @Test
+    fun testTrackActivityOnResume() {
+        LeanAnalyticsSdk.setTrackPageConfiguration(TrackPageConfiguration.TRACK_ONRESUME)
+
         rule.launchActivity(Intent())
         onView(withText("Test")).check(matches(isDisplayed()))
 
