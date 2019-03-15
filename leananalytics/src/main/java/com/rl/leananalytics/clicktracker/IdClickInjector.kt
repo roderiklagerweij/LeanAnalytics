@@ -1,5 +1,6 @@
-package com.rl.analyticstest
+package com.rl.leananalytics.clicktracker
 
+import android.content.res.Resources
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +14,17 @@ class IdClickInjector {
 
     companion object {
         fun inject(rootView : ViewGroup) {
-            recurseView(rootView)
+            val tic = System.currentTimeMillis()
+            if (rootView.rootView.id != -1) {
+                Log.d("Injector", rootView.resources.getResourceEntryName(rootView.rootView.id))
+            }
+
+            recurseView(rootView, rootView.resources)
+            Log.d("Injector", "Injecting done in " + (System.currentTimeMillis()-tic) + " ms")
         }
 
-        private fun recurseView(view : View) {
-            val tic = System.currentTimeMillis()
+        private fun recurseView(view : View, resources : Resources) {
+
             val viewgroup = view as ViewGroup
             for (i in 0 until viewgroup.childCount) {
                 val childView = viewgroup.getChildAt(i)
@@ -25,13 +32,15 @@ class IdClickInjector {
                 if (childView.hasOnClickListeners()) {
                     val clickListener = getOnClickListenerV14(childView)
                     if (clickListener !is IdClickListener) {
-                        childView.setOnClickListener(clickListener?.let { IdClickListener(it) })
+                        if (childView.id != -1) {
+                            Log.d("Injector", "Injection for " + resources.getResourceEntryName(childView.id))
+                            childView.setOnClickListener(clickListener?.let { IdClickListener(it) })
+                        }
                     }
                 }
 
-                if (childView is ViewGroup) recurseView(childView)
+                if (childView is ViewGroup) recurseView(childView, resources)
             }
-            Log.d("Injector", "Injecting done in " + (System.currentTimeMillis()-tic) + " ms")
         }
 
         private fun getOnClickListenerV14(view: View): View.OnClickListener? {
