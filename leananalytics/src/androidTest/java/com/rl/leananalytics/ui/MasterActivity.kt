@@ -1,4 +1,4 @@
-package com.rl.leananalytics.activities
+package com.rl.leananalytics.ui
 
 import android.content.Intent
 import android.os.Bundle

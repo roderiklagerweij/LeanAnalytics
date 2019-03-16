@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">leananalytics</string>
     <string name="navigate_to_detail">Navigate to detail</string>
+    <string name="fragment_button">Button in fragment</string>
 </resources>

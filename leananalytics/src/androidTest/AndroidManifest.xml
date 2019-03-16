@@ -3,10 +3,13 @@
 
     <application>
         <activity
-            android:name=".activities.MasterActivity"
+            android:name=".ui.MasterActivity"
             android:theme="@style/Theme.AppCompat"/>
         <activity
-            android:name=".activities.DetailActivity"
+            android:name=".ui.DetailActivity"
+            android:theme="@style/Theme.AppCompat"/>
+        <activity
+            android:name=".ui.FragmentActivity"
             android:theme="@style/Theme.AppCompat"/>
     </application>
 
