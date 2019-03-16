@@ -11,7 +11,7 @@ if you cannot or do want to use Firebase analytics then this SDK might
 work for you.
 
 Note: intercepting view clicks uses reflection and therefor has no
-guarentees whatsoever to continue working in the future. 
+guarantees whatsoever to continue working in the future. 
 
 ## Setup
 
@@ -29,7 +29,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2: Add the dependency to your app's build file
 
 	dependencies {
-	        implementation 'com.github.roderiklagerweij:LeanAnalytics:0.1'
+	        implementation 'com.github.roderiklagerweij:LeanAnalytics:0.11'
 	}
 	
 
@@ -73,8 +73,8 @@ navigating *back* to an activity as well as navigating forward to an activity.
 
 ## Limitations
 
-* Obfuscation apps are not supported: if activities are obfuscated it will 
-pass the obfuscated name, which obviously is useless
+* Obfuscated apps are not supported: if activities are obfuscated it will 
+pass the obfuscated name, which obviously is useless for tracking purposes
 * Click listeners set after some async operation will not but intercepted:
 since the click listeners are replaced with a click listener that notifies 
 the SDK of the click event on the onResume lifecycle callback of the activity,
