@@ -1,5 +1,6 @@
 package com.rl.leananalytics
 
-interface TrackPageAdapter {
+interface TrackingAdapter {
+    fun trackAction(id: String)
     fun trackActivity(activityName : String)
 }

@@ -1,8 +1,9 @@
-package com.rl.leananalytics
+package com.rl.leananalytics.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.rl.leananalytics.R
 import kotlinx.android.synthetic.main.master_activity_layout.*
 
 class MasterActivity : AppCompatActivity() {

@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import android.util.Log
+import android.view.ViewGroup
+import com.rl.leananalytics.clicktracker.IdClickInjector
 
 class LeanAnalyticsSdk {
     companion object {
@@ -12,7 +14,7 @@ class LeanAnalyticsSdk {
 
         private var trackPageConfiguration : TrackPageConfiguration = TrackPageConfiguration.TRACK_ONCREATE
 
-        fun init(application : Application, trackPageAdapter : TrackPageAdapter) {
+        fun init(application : Application, trackingAdapter : TrackingAdapter) {
             application.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
                 override fun onActivityPaused(activity: Activity?) {
 
@@ -20,8 +22,9 @@ class LeanAnalyticsSdk {
 
                 override fun onActivityResumed(activity: Activity?) {
                     if (trackPageConfiguration == TrackPageConfiguration.TRACK_ONRESUME) {
-                        trackActivity(activity, trackPageAdapter)
+                        trackActivity(activity, trackingAdapter)
                     }
+                    IdClickInjector.inject(activity?.window?.decorView as ViewGroup, trackingAdapter)
                 }
 
                 override fun onActivityStarted(activity: Activity?) {
@@ -41,7 +44,7 @@ class LeanAnalyticsSdk {
 
                 override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
                     if (trackPageConfiguration == TrackPageConfiguration.TRACK_ONCREATE) {
-                        trackActivity(activity, trackPageAdapter)
+                        trackActivity(activity, trackingAdapter)
                     }
                 }
             })
@@ -51,10 +54,10 @@ class LeanAnalyticsSdk {
             this.trackPageConfiguration = trackPageConfiguration
         }
 
-        private fun trackActivity(activity : Activity?, trackPageAdapter: TrackPageAdapter) {
+        private fun trackActivity(activity : Activity?, trackingAdapter: TrackingAdapter) {
             activity?.let {
                 Log.d(TAG, "tracking page: ${it.localClassName}")
-                trackPageAdapter.trackActivity(it.localClassName)
+                trackingAdapter.trackActivity(it.localClassName)
             }
         }
     }

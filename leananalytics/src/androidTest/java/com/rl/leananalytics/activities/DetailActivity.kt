@@ -1,7 +1,8 @@
-package com.rl.leananalytics
+package com.rl.leananalytics.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.rl.leananalytics.R
 
 class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

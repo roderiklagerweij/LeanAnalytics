@@ -11,6 +11,7 @@ import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
+import com.rl.leananalytics.activities.MasterActivity
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -18,13 +19,13 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 
 @RunWith(AndroidJUnit4::class)
-class TrackActivityTest {
+class TrackPageTest {
 
     @Rule
     @JvmField
     public val rule = ActivityTestRule(MasterActivity::class.java, false, false)
 
-    val mockTrackPageAdapter = mock(TrackPageAdapter::class.java)
+    val mockTrackPageAdapter = mock(TrackingAdapter::class.java)
 
     @Before
     fun setup() {
@@ -37,7 +38,7 @@ class TrackActivityTest {
         rule.launchActivity(Intent())
         onView(withText(R.string.navigate_to_detail)).check(matches(isDisplayed()))
 
-        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.MasterActivity")
+        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.activities.MasterActivity")
     }
 
     @Test
@@ -47,7 +48,7 @@ class TrackActivityTest {
         rule.launchActivity(Intent())
         onView(withText(R.string.navigate_to_detail)).check(matches(isDisplayed()))
 
-        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.MasterActivity")
+        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.activities.MasterActivity")
     }
 
     @Test
@@ -57,8 +58,8 @@ class TrackActivityTest {
         onView(withText(R.string.navigate_to_detail)).check(matches(isDisplayed())).perform(click())
         pressBack()
 
-        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.MasterActivity")
-        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.DetailActivity")
+        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.activities.MasterActivity")
+        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.activities.DetailActivity")
     }
 
     @Test
@@ -68,8 +69,8 @@ class TrackActivityTest {
         onView(withText(R.string.navigate_to_detail)).check(matches(isDisplayed())).perform(click())
         pressBack()
 
-        verify(mockTrackPageAdapter, times(2)).trackActivity("com.rl.leananalytics.MasterActivity")
-        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.DetailActivity")
+        verify(mockTrackPageAdapter, times(2)).trackActivity("com.rl.leananalytics.activities.MasterActivity")
+        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.activities.DetailActivity")
     }
 
 }

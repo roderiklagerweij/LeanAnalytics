@@ -4,42 +4,33 @@ import android.content.res.Resources
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import com.rl.leananalytics.TrackingAdapter
 
-
-
-/**
- * Created by Roderik on 23-05-18.
- */
 class IdClickInjector {
 
     companion object {
-        fun inject(rootView : ViewGroup) {
+        fun inject(rootView : ViewGroup, trackingAdapter: TrackingAdapter) {
             val tic = System.currentTimeMillis()
-            if (rootView.rootView.id != -1) {
-                Log.d("Injector", rootView.resources.getResourceEntryName(rootView.rootView.id))
-            }
 
-            recurseView(rootView, rootView.resources)
-            Log.d("Injector", "Injecting done in " + (System.currentTimeMillis()-tic) + " ms")
+            recurseView(rootView, rootView.resources, trackingAdapter)
+            Log.d("LeanAnalyticsSdk", "Injecting done in " + (System.currentTimeMillis()-tic) + " ms")
         }
 
-        private fun recurseView(view : View, resources : Resources) {
+        private fun recurseView(view : View, resources : Resources, trackingAdapter: TrackingAdapter) {
 
             val viewgroup = view as ViewGroup
             for (i in 0 until viewgroup.childCount) {
                 val childView = viewgroup.getChildAt(i)
-
                 if (childView.hasOnClickListeners()) {
                     val clickListener = getOnClickListenerV14(childView)
                     if (clickListener !is IdClickListener) {
                         if (childView.id != -1) {
-                            Log.d("Injector", "Injection for " + resources.getResourceEntryName(childView.id))
-                            childView.setOnClickListener(clickListener?.let { IdClickListener(it) })
+                            childView.setOnClickListener(clickListener?.let { IdClickListener(it, trackingAdapter) })
                         }
                     }
                 }
 
-                if (childView is ViewGroup) recurseView(childView, resources)
+                if (childView is ViewGroup) recurseView(childView, resources, trackingAdapter)
             }
         }
 
@@ -63,16 +54,11 @@ class IdClickInjector {
                     retrievedListener = clickListenerField.get(listenerInfo) as View.OnClickListener
                 }
             } catch (ex: NoSuchFieldException) {
-                Log.e("Reflection", "No Such Field.")
             } catch (ex: IllegalAccessException) {
-                Log.e("Reflection", "Illegal Access.")
             } catch (ex: ClassNotFoundException) {
-                Log.e("Reflection", "Class Not Found.")
             }
 
             return retrievedListener
         }
-
     }
-
 }
