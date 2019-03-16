@@ -57,7 +57,7 @@ class LeanAnalyticsSdk {
         private fun trackActivity(activity : Activity?, trackingAdapter: TrackingAdapter) {
             activity?.let {
                 Log.d(TAG, "tracking page: ${it.localClassName}")
-                trackingAdapter.trackActivity(it.localClassName)
+                trackingAdapter.trackPage(it.localClassName)
             }
         }
     }

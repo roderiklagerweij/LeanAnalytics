@@ -38,7 +38,7 @@ class TrackPageTest {
         rule.launchActivity(Intent())
         onView(withText(R.string.navigate_to_detail)).check(matches(isDisplayed()))
 
-        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.ui.MasterActivity")
+        verify(mockTrackPageAdapter, times(1)).trackPage("com.rl.leananalytics.ui.MasterActivity")
     }
 
     @Test
@@ -48,7 +48,7 @@ class TrackPageTest {
         rule.launchActivity(Intent())
         onView(withText(R.string.navigate_to_detail)).check(matches(isDisplayed()))
 
-        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.ui.MasterActivity")
+        verify(mockTrackPageAdapter, times(1)).trackPage("com.rl.leananalytics.ui.MasterActivity")
     }
 
     @Test
@@ -58,8 +58,8 @@ class TrackPageTest {
         onView(withText(R.string.navigate_to_detail)).check(matches(isDisplayed())).perform(click())
         pressBack()
 
-        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.ui.MasterActivity")
-        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.ui.DetailActivity")
+        verify(mockTrackPageAdapter, times(1)).trackPage("com.rl.leananalytics.ui.MasterActivity")
+        verify(mockTrackPageAdapter, times(1)).trackPage("com.rl.leananalytics.ui.DetailActivity")
     }
 
     @Test
@@ -69,8 +69,8 @@ class TrackPageTest {
         onView(withText(R.string.navigate_to_detail)).check(matches(isDisplayed())).perform(click())
         pressBack()
 
-        verify(mockTrackPageAdapter, times(2)).trackActivity("com.rl.leananalytics.ui.MasterActivity")
-        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.ui.DetailActivity")
+        verify(mockTrackPageAdapter, times(2)).trackPage("com.rl.leananalytics.ui.MasterActivity")
+        verify(mockTrackPageAdapter, times(1)).trackPage("com.rl.leananalytics.ui.DetailActivity")
     }
 
 }

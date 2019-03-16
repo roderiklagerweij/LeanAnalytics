@@ -37,7 +37,7 @@ class FragmentTest {
         rule.launchActivity(Intent())
         onView(withText(R.string.fragment_button)).check(matches(isDisplayed()))
 
-        verify(mockTrackPageAdapter, times(1)).trackActivity("com.rl.leananalytics.ui.FragmentActivity")
+        verify(mockTrackPageAdapter, times(1)).trackPage("com.rl.leananalytics.ui.FragmentActivity")
     }
 
     @Test

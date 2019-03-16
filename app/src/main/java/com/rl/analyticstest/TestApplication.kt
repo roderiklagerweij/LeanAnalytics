@@ -17,7 +17,7 @@ class TestApplication : Application() {
                     // track here the action to your actual analytics SDK
                 }
 
-                override fun trackActivity(activityName: String) {
+                override fun trackPage(activityName: String) {
                     // track here the page to your actual analytics SDK
                 }
             })

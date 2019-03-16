@@ -46,7 +46,7 @@ onCreate to initialise the SDK:
                 // track here the action to your actual analytics SDK
             }
 
-            override fun trackActivity(activityName: String) {
+            override fun trackPage(activityName: String) {
                 // track here the page to your actual analytics SDK
             }
         })
@@ -55,8 +55,8 @@ onCreate to initialise the SDK:
 In the trackAction and trackActivity functions you can add the code that 
 delegates the events to your analytics SDK, e.g.:
 
-    override fun trackActivity(activityName: String) {
-        Analytics.trackState(activityName, null);
+    override fun trackPage(activityName: String) {
+        YourAnalyticsSdk.trackPage(activityName);
     }
 
 ## Configuration
