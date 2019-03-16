@@ -13,9 +13,13 @@ class LeanAnalyticsSdk {
         const val TAG = "LeanAnalyticsSdk"
 
         private var trackPageConfiguration : TrackPageConfiguration = TrackPageConfiguration.TRACK_ONCREATE
+        private var activityLifecycleCallbacks : Application.ActivityLifecycleCallbacks? = null
 
         fun init(application : Application, trackingAdapter : TrackingAdapter) {
-            application.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
+            activityLifecycleCallbacks?.let{
+                application.unregisterActivityLifecycleCallbacks(it)
+            }
+            activityLifecycleCallbacks = object : Application.ActivityLifecycleCallbacks {
                 override fun onActivityPaused(activity: Activity?) {
 
                 }
@@ -47,7 +51,8 @@ class LeanAnalyticsSdk {
                         trackActivity(activity, trackingAdapter)
                     }
                 }
-            })
+            }
+            application.registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
         }
 
         fun setTrackPageConfiguration(trackPageConfiguration: TrackPageConfiguration) {
